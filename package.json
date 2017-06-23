@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-app-dynamics",
+  "version": "0.0.1",
+  "description": "AppDynamics Custom cordova plugin",
+  "cordova": {
+    "id": "cordova-plugin-app-dynamics",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenihimeU/cordova-plugin-app-dynamics-.git"
+  },
+  "keywords": [
+    "cordova-plugin-appdynamics",
+    "appdynamics",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "BenihimeU",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BenihimeU/cordova-plugin-app-dynamics-/issues"
+  },
+  "homepage": "https://github.com/BenihimeU/cordova-plugin-app-dynamics-#readme"
+}
