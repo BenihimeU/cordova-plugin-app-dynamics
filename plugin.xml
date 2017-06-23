@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-app-dynamics" version="0.0.1">
+   <name>AppDynamicsPlugin</name>
+   	<description>AppDynamics Custom cordova plugin</description>
+	<keywords>cordova-plugin-appdynamics,appdynamics</keywords>
+	<author>Vishwas HK</author>
+   <js-module name="AppDynamicsPlugin" src="www/AppDynamicsPlugin.js">
+      <clobbers target="cordova.plugins.AppDynamicsPlugin" />
+   </js-module>
+   <platform name="android">
+      <config-file parent="/*" target="res/xml/config.xml">
+         <feature name="AppDynamicsPlugin">
+            <param name="android-package" value="cordova-plugin-app-dynamics.AppDynamicsPlugin" />
+         </feature>
+      </config-file>
+
+      <config-file target="AndroidManifest.xml" parent="/*">
+      	<uses-permission android:name="android.permission.INTERNET" />
+      	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+      </config-file>
+
+      <source-file src="src/android/com/appdynamics/eydigital/AppDynamicsPlugin.java" target-dir="src/cordova-plugin-app-dynamics/com/appdynamics/eydigital/AppDynamicsPlugin" />
+   </platform>
+   <platform name="ios">
+      <config-file parent="/*" target="config.xml">
+         <feature name="AppDynamicsPlugin">
+            <param name="ios-package" value="AppDynamicsPlugin" />
+         </feature>
+      </config-file>
+      <header-file src="src/ios/AppDynamicsPlugin.h" />
+      <source-file src="src/ios/AppDynamicsPlugin.m" />
+   </platform>
+</plugin>
