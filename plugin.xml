@@ -10,7 +10,7 @@
    <platform name="android">
       <config-file parent="/*" target="res/xml/config.xml">
          <feature name="AppDynamicsPlugin">
-            <param name="android-package" value="cordova-plugin-app-dynamics.AppDynamicsPlugin" />
+            <param name="android-package" value="com.appdynamics.eydigital.AppDynamicsPlugin" />
          </feature>
       </config-file>
 
