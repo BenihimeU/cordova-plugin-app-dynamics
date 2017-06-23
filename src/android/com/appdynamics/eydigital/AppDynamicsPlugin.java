@@ -1,4 +1,4 @@
-package com.appdynamics.eydigital;
+package com.appdynamics.eydigital.AppDynamicsPlugin;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
