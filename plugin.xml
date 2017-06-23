@@ -19,7 +19,7 @@
       	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
       </config-file>
 
-      <source-file src="src/android/com/appdynamics/eydigital/AppDynamicsPlugin.java" target-dir="src/com/appdynamics/eydigital/AppDynamicsPlugin" />
+      <source-file src="src/android/com/appdynamics/eydigital/AppDynamicsPlugin.java" target-dir="src/com/appdynamics/eydigital" />
    </platform>
    <platform name="ios">
       <config-file parent="/*" target="config.xml">
