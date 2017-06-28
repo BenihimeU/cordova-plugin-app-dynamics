@@ -3,7 +3,7 @@
 //
 var exec = require('cordova/exec');
 
-var AppDynamicsPlugin ={};
+var AppDynamicsPlugin = function(){};
 AppDynamicsPlugin.prototype.reportMetrics = reportMetric;
 AppDynamicsPlugin.prototype.setUserData = setUserData;
 AppDynamicsPlugin.prototype.startTrackerWithName = startTrackerWithName;
