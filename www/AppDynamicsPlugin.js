@@ -15,9 +15,9 @@ function reportMetric (metricName,metricValue,options) {
 	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','reportMetricWithName',[metricName,metricValue]);
 }
 
-function setUserData (userData,options) {
+function setUserData (property, value, isPersist, options) {
 	options = options || {};
-	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','setUserData',[userData]);
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','setUserData',[property,value,isPersist]);
 }
 
 function startTrackerWithName (trackerName,options) {
