@@ -20,6 +20,7 @@
       </config-file>
 
       <source-file src="src/android/com/appdynamics/eydigital/AppDynamicsPlugin.java" target-dir="src/com/appdynamics/eydigital" />
+      <source-file src="src/android/com/appdynamics/eydigital/AppDShareCache.java" target-dir="src/com/appdynamics/eydigital" />
    </platform>
    <platform name="ios">
       <config-file parent="/*" target="config.xml">
@@ -29,5 +30,7 @@
       </config-file>
       <header-file src="src/ios/AppDynamicsPlugin.h" />
       <source-file src="src/ios/AppDynamicsPlugin.m" />
+      <header-file src="src/ios/AppDShareCache.h" />
+      <source-file src="src/ios/AppDShareCache.m" />
    </platform>
 </plugin>
