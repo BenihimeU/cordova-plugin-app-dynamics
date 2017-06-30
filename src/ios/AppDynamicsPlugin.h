@@ -13,4 +13,12 @@
 - (void)startTimerWithName:(CDVInvokedUrlCommand*)command;
 - (void)stopTimerWithName:(CDVInvokedUrlCommand*)command;
 
+- (void)beginCall:(CDVInvokedUrlCommand*)command;
+- (void)endCall:(CDVInvokedUrlCommand*)command;
+
+- (void)leaveBreadcrumb:(CDVInvokedUrlCommand*)command;
+- (void)beginHttpRequest:(CDVInvokedUrlCommand*)command;
+- (void)reportDone:(CDVInvokedUrlCommand*)command;
+- (void)getCorrelationHeaders:(CDVInvokedUrlCommand*)command;
+
 @end

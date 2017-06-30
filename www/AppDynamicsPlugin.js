@@ -10,24 +10,54 @@ AppDynamicsPlugin.prototype.startTrackerWithName = startTrackerWithName;
 AppDynamicsPlugin.prototype.stopTrackerWithName = stopTrackerWithName;
 
 
-function reportMetric (metricName,metricValue,options) {
+function reportMetric (metricName, metricValue, options) {
 	options = options || {};
-	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','reportMetricWithName',[metricName,metricValue]);
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','reportMetricWithName',[metricName, metricValue]);
 }
 
 function setUserData (property, value, isPersist, options) {
 	options = options || {};
-	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','setUserData',[property,value,isPersist]);
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','setUserData',[property, value, isPersist]);
 }
 
-function startTrackerWithName (trackerName,options) {
+function startTrackerWithName (trackerName, options) {
 	options = options || {};
 	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','startTimerWithName',[trackerName]);
 }
 
-function stopTrackerWithName (trackerName,options) {
+function stopTrackerWithName (trackerName, options) {
 	options = options || {};
 	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','stopTimerWithName',[trackerName]);
+}
+
+function beginCallWithNameAndAction (callName, action, options) {
+	options = options || {};
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','beginCall',[callName, action]);
+}
+
+function endCallwithRefKey (refKey, options) {
+	options = options || {};
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','endCall',[refKEy]);
+}
+
+function leaveBreadcrumb (crumb, options) {
+	options = options || {};
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','leaveBreadcrumb',[crumb]);
+}
+
+function trackHTTPRequestWithURL (url, options) {
+	options = options || {};
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','beginHttpRequest',[url]);
+}
+
+function reportDone (key, status, options) {
+	options = options || {};
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','reportDone',[key, status]);
+}
+
+function getCorrelationHeaders (options) {
+	options = options || {};
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','getCorrelationHeaders',[]);
 }
 
 module.exports = new AppDynamicsPlugin();

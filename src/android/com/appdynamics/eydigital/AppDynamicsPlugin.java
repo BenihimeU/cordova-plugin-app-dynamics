@@ -9,9 +9,21 @@ import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+import java.util.UUID;
+import java.net.URL;
+import java.net.MalformedURLException;
 import android.util.Log;
 
 import com.appdynamics.eumagent.runtime.Instrumentation;
+import com.appdynamics.eumagent.runtime.CallTracker;
+import com.appdynamics.eumagent.runtime.HttpRequestTracker;
+import com.appdynamics.eumagent.runtime.ServerCorrelationHeaders;
 
 public class AppDynamicsPlugin extends CordovaPlugin {
 	private static final String TAG = "AppDynamicsPlugin";
@@ -51,7 +63,83 @@ public class AppDynamicsPlugin extends CordovaPlugin {
 				cbContext.success();
 				status = true;
 			}
-		} else { // catch all
+		} else if(action.equals("beginCall")) {
+			String name = args.getString(0);
+			String method = args.getString(1);
+			// make key from UUID
+			String key = UUID.randomUUID().toString();
+			HashMap cache = AppDSharedCache.getInstance();
+			cache.put(key, Instrumentation.beginCall(name, method));
+			cbContext.success(key);
+			status = true;
+		} else if(action.equals("endCall")) {
+			String key = args.getString(0);
+			HashMap cache = AppDSharedCache.getInstance();
+			CallTracker tracker = (CallTracker)cache.get(key);
+			if(tracker != null) {
+				Instrumentation.endCall(tracker);
+				cache.remove(key);
+				status = true;
+				cbContext.success();
+			}
+		} else if(action.equals("leaveBreadcrumb")) {
+			String crumb = args.getString(0);
+			Instrumentation.leaveBreadcrumb(crumb);
+			status = true;
+			cbContext.success();
+		} else if(action.equals("getCorrelationHeaders")) {
+			Map<String, List<String>> headersMap = ServerCorrelationHeaders.generate();
+			JSONObject headers = new JSONObject();
+			for(Map.Entry<String, List<String>> entry : headersMap.entrySet()) {
+				headers.put(entry.getKey(), entry.getValue().get(0));
+			}
+			cbContext.success(headers);
+		} else if(action.equals("beginHttpRequest")) {
+			String urlString = args.getString(0);
+			try {
+				URL url = new URL(urlString);
+				HashMap cache = AppDSharedCache.getInstance();
+				HttpRequestTracker tracker = Instrumentation.beginHttpRequest(url);
+				// make key out of UUID
+				String key = UUID.randomUUID().toString();
+				cache.put(key, tracker);
+				cbContext.success(key);
+				status = true;
+			} catch(MalformedURLException e) {
+				// Log it
+				Log.e(TAG, "Exception: " + e.getMessage());
+				cbContext.error(e.getMessage());
+			}
+		} else if(action.equals("reportDone")) {
+			String tkey = args.getString(0);
+			int responsecode = args.getInt(1);
+			JSONObject headersObj = args.getJSONObject(2);
+
+			// Loop through JSON Object
+			HashMap headersMap = new HashMap();
+			Iterator itor = headersObj.keys();
+			while(itor.hasNext()) {
+				String key = (String)itor.next();
+				String val = headersObj.getString(key);
+				ArrayList list = new ArrayList();
+				list.add(val);
+				// AppD magic headers must be uppercase CORE-39486
+				if(key.startsWith("adrum")) {
+					key = key.toUpperCase();
+				}
+				headersMap.put(key, list);
+			}
+			Log.i(TAG, ">>> ResponseHeaders " + headersMap);
+			
+			HashMap cache = AppDSharedCache.getInstance();
+			HttpRequestTracker tracker = (HttpRequestTracker)cache.get(tkey);
+			if(tracker != null) {
+				tracker.withResponseHeaderFields(headersMap).withResponseCode(responsecode).reportDone();
+				cache.remove(tkey);
+				status = true;
+				cbContext.success();
+			}
+		}else { // catch all
 			Log.e(TAG, "Method not recognised");
 			status = false;
 			cbContext.error("Method not recognised");
