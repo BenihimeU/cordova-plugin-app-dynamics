@@ -43,7 +43,7 @@ function beginCallWithNameAndAction (callName, action, options) {
 
 function endCallwithRefKey (refKey, options) {
 	options = options || {};
-	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','endCall',[refKEy]);
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','endCall',[refKey]);
 }
 
 function leaveBreadcrumb (crumb, options) {
