@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "AppDCache.h"
+#import "AppDShareCache.h"
 
 static NSMutableDictionary *g_Cache;
 
