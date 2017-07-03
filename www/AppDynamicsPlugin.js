@@ -8,6 +8,12 @@ AppDynamicsPlugin.prototype.reportMetrics = reportMetric;
 AppDynamicsPlugin.prototype.setUserData = setUserData;
 AppDynamicsPlugin.prototype.startTrackerWithName = startTrackerWithName;
 AppDynamicsPlugin.prototype.stopTrackerWithName = stopTrackerWithName;
+AppDynamicsPlugin.prototype.beginCallWithNameAndAction = beginCallWithNameAndAction;
+AppDynamicsPlugin.prototype.endCallwithRefKey = endCallwithRefKey;
+AppDynamicsPlugin.prototype.leaveBreadcrumb = leaveBreadcrumb;
+AppDynamicsPlugin.prototype.trackHTTPRequestWithURL = trackHTTPRequestWithURL;
+AppDynamicsPlugin.prototype.reportDone = reportDone;
+AppDynamicsPlugin.prototype.getCorrelationHeaders = getCorrelationHeaders;
 
 
 function reportMetric (metricName, metricValue, options) {
