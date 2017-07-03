@@ -56,9 +56,9 @@ function trackHTTPRequestWithURL (url, options) {
 	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','beginHttpRequest',[url]);
 }
 
-function reportDone (key, status, options) {
+function reportDone (key, status, header, options) {
 	options = options || {};
-	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','reportDone',[key, status]);
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','reportDone',[key, status, header]);
 }
 
 function getCorrelationHeaders (options) {
