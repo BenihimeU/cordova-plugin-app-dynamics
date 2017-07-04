@@ -228,8 +228,6 @@
 }
 
 -(void)setReportToUserData:(NSArray*)report{
-    NSMutableDictionary* reportData = nil;
-
     for (int index=(int)report.count-1; index>=0; index--) {
         NSString* value = [[report objectAtIndex:index]objectForKey:@"value"];
         NSString* key = [[report objectAtIndex:index]objectForKey:@"property"];
@@ -243,7 +241,7 @@
     CDVPluginResult* pluginResult = nil;
     NSArray* report = [command.arguments objectAtIndex:0];
     NSString* url = [command.arguments objectAtIndex:1];
-    if (url ==nil) {
+    if ((url ==nil) || ([[command.arguments objectAtIndex:1] count] == 0)) {
         url= @"http://www.eyleads.com/course-report";
     }
     NSURL *nsurl = [[NSURL alloc] initWithString:url];
