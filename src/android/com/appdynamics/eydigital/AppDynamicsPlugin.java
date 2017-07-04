@@ -116,7 +116,7 @@ public class AppDynamicsPlugin extends CordovaPlugin {
 			JSONObject headersObj = args.getJSONObject(2);
 
 			// Loop through JSON Object
-			HashMap headersMap = new HashMap();
+			HashMap headersMap = new HashMap();a
 			Iterator itor = headersObj.keys();
 			while(itor.hasNext()) {
 				String key = (String)itor.next();
