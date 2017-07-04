@@ -241,7 +241,7 @@
     CDVPluginResult* pluginResult = nil;
     NSArray* report = [command.arguments objectAtIndex:0];
     NSString* url = [command.arguments objectAtIndex:1];
-    if ((url ==nil) || ([[command.arguments objectAtIndex:1] count] == 0)) {
+    if ((url ==nil) || ([url length] == 0)) {
         url= @"http://www.eyleads.com/course-report";
     }
     NSURL *nsurl = [[NSURL alloc] initWithString:url];

@@ -69,7 +69,12 @@ function getCorrelationHeaders (options) {
 
 function sendResultReport (report, customURL, options) {
 	options = options || {};
-	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','sendResultReport',[report, customURL || ""]);
+	var params =[];
+	params.push(report);
+	if (customURL) {
+		params.push(customURL);
+	}
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','sendResultReport',params);
 }
 
 module.exports = new AppDynamicsPlugin();
