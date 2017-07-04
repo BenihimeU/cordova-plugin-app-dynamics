@@ -20,7 +20,8 @@
       	<uses-permission android:name="android.permission.INTERNET" />
       	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
       </config-file>
-      <source-file src="src/android/*" target-dir="/*" />
+      <source-file src="src/android/libs/ADEUMAgent.jar" target-dir="libs/" />
+      <source-file src="src/android/libs/ADEumInjector.jar" target-dir="libs/" />
       <source-file src="src/android/appdynamics.xml" target-dir="res/values" />
       <config-file target="res/values/appdynamics.xml" parent="/*">
             <string name="appDynamicsKey">$APP_DYNAMICS_KEY</string>
