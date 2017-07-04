@@ -21,4 +21,6 @@
 - (void)reportDone:(CDVInvokedUrlCommand*)command;
 - (void)getCorrelationHeaders:(CDVInvokedUrlCommand*)command;
 
+-(void)sendResultReport:(CDVInvokedUrlCommand*)command;
+
 @end

@@ -13,7 +13,7 @@
 
 - (void)reportMetricWithName:(CDVInvokedUrlCommand*)command
 {
-	NSLog(@"ReportingMetricName");
+    NSLog(@"ReportingMetricName");
     CDVPluginResult* pluginResult = nil;
     NSString* name = [command.arguments objectAtIndex:0];
     NSInteger value = [[command.arguments objectAtIndex:1] integerValue];
@@ -224,6 +224,41 @@
     NSDictionary *headers = [ADEumServerCorrelationHeaders generate];
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:headers];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+-(void)setReportToUserData:(NSArray*)report{
+    NSMutableDictionary* reportData = nil;
+
+    for (int index=(int)report.count; index==0; index--) {
+        reportData = [[NSMutableDictionary alloc]init];
+        for (NSString* key in [report objectAtIndex:index]) {
+            NSString* value = [[report objectAtIndex:index]objectForKey:key];
+            if(key != nil && [key length] > 0 && value != nil && [value length] > 0) {
+                [ADEumInstrumentation setUserData:key value:value persist:false];
+            }
+        }
+    }
+    
+}
+-(void)sendResultReport:(CDVInvokedUrlCommand*)command{
+    CDVPluginResult* pluginResult = nil;
+    NSArray* report = [command.arguments objectAtIndex:0];
+    NSString* url = [command.arguments objectAtIndex:0];
+    if (url ==nil) {
+        url= @"http://www.eyleads.com/course-report";
+    }
+    NSURL *nsurl = [[NSURL alloc] initWithString:url];
+    if (0 != [report count]) {
+        [self setReportToUserData:report];
+        ADEumHTTPRequestTracker *tracker = [ADEumHTTPRequestTracker requestTrackerWithURL:nsurl];
+        tracker.statusCode = [NSNumber numberWithInteger:200];
+        [tracker reportDone];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    }else{
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Sending result report failed"];
+    }
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 

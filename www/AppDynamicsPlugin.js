@@ -14,6 +14,7 @@ AppDynamicsPlugin.prototype.leaveBreadcrumb = leaveBreadcrumb;
 AppDynamicsPlugin.prototype.trackHTTPRequestWithURL = trackHTTPRequestWithURL;
 AppDynamicsPlugin.prototype.reportDone = reportDone;
 AppDynamicsPlugin.prototype.getCorrelationHeaders = getCorrelationHeaders;
+AppDynamicsPlugin.prototype.sendResultReport = sendResultReport;
 
 
 function reportMetric (metricName, metricValue, options) {
@@ -64,6 +65,11 @@ function reportDone (key, status, header, options) {
 function getCorrelationHeaders (options) {
 	options = options || {};
 	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','getCorrelationHeaders',[]);
+}
+
+function sendResultReport (report, customURL, options) {
+	options = options || {};
+	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','sendResultReport',[report, customURL]);
 }
 
 module.exports = new AppDynamicsPlugin();

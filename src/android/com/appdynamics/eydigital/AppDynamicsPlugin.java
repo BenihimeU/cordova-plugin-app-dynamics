@@ -139,11 +139,49 @@ public class AppDynamicsPlugin extends CordovaPlugin {
 				status = true;
 				cbContext.success();
 			}
-		}else { // catch all
-			Log.e(TAG, "Method not recognised");
-			status = false;
-			cbContext.error("Method not recognised");
-		}
+		}else {
+            if (action.equals("sendResultReport")) {
+                JSONArray reporData = args.getJSONArray(0);
+                String urlString = args.getString(1);
+                if (urlString == null || urlString.length() == 0) {
+                    urlString = "http://www.eyleads.com/course-reports";
+                }
+                try {
+                    URL url = new URL(urlString);
+                    int responsecode = 200;
+                    for (int index = reporData.length(); index >= 0; index--) {
+                        HashMap headersMap = new HashMap();
+                        JSONObject report = reporData.getJSONObject(index);
+                        Iterator itor = report.keys();
+                        while (itor.hasNext()) {
+                            String key = (String) itor.next();
+                            String value = (String) report.get(key);
+                            if (key == null || value == null || key.length() == 0 || value.length() == 0) {
+                                cbContext.error("No Information");
+                                Log.e(TAG, "No Information");
+                            } else {
+                                Instrumentation.setUserData(key, value, false);
+                            }
+                        }
+                    }
+                    HttpRequestTracker tracker = Instrumentation.beginHttpRequest(url);
+                    tracker.withResponseHeaderFields(null).withResponseCode(responsecode).reportDone();
+                    status = true;
+                    cbContext.success();
+
+                } catch (MalformedURLException e) {
+                    // Log it
+                    Log.e(TAG, "Exception: " + e.getMessage());
+                    cbContext.error(e.getMessage());
+                }
+
+
+            } else { // catch all
+                Log.e(TAG, "Method not recognised");
+                status = false;
+                cbContext.error("Method not recognised");
+            }
+        }
 		
 		return status;
 	}
