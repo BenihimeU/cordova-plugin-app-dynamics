@@ -231,12 +231,10 @@
     NSMutableDictionary* reportData = nil;
 
     for (int index=(int)report.count-1; index>=0; index--) {
-        reportData = [[NSMutableDictionary alloc]init];
-        for (NSString* key in [report objectAtIndex:index]) {
-            NSString* value = [[report objectAtIndex:index]objectForKey:key];
-            if(key != nil && [key length] > 0 && value != nil && [value length] > 0) {
-                [ADEumInstrumentation setUserData:key value:value persist:false];
-            }
+        NSString* value = [[report objectAtIndex:index]objectForKey:@"value"];
+        NSString* key = [[report objectAtIndex:index]objectForKey:@"property"];
+        if(key != nil && [key length] > 0 && value != nil && [value length] > 0) {
+            [ADEumInstrumentation setUserData:key value:value persist:false];
         }
     }
     
