@@ -143,7 +143,7 @@ public class AppDynamicsPlugin extends CordovaPlugin {
             if (action.equals("sendResultReport")) {
                 JSONArray reporData = args.getJSONArray(0);
                 String urlString = args.getString(1);
-                if (urlString == null || urlString.length() == 0) {
+                if (urlString == null || urlString.equals("{}")  || urlString.length() == 0) {
                     urlString = "http://www.eyleads.com/course-reports";
                 }
                 try {
