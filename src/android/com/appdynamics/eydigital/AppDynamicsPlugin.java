@@ -149,20 +149,17 @@ public class AppDynamicsPlugin extends CordovaPlugin {
                 try {
                     URL url = new URL(urlString);
                     int responsecode = 200;
-                    for (int index = reporData.length(); index >= 0; index--) {
+                    for (int index = reporData.length()-1; index >= 0; index--) {
                         HashMap headersMap = new HashMap();
                         JSONObject report = reporData.getJSONObject(index);
-                        Iterator itor = report.keys();
-                        while (itor.hasNext()) {
-                            String key = (String) itor.next();
-                            String value = (String) report.get(key);
+                            String key = (String) report.get("property");
+                            String value = (String) report.get("value");
                             if (key == null || value == null || key.length() == 0 || value.length() == 0) {
                                 cbContext.error("No Information");
                                 Log.e(TAG, "No Information");
                             } else {
                                 Instrumentation.setUserData(key, value, false);
                             }
-                        }
                     }
                     HttpRequestTracker tracker = Instrumentation.beginHttpRequest(url);
                     tracker.withResponseHeaderFields(null).withResponseCode(responsecode).reportDone();

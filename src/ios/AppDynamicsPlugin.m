@@ -230,7 +230,7 @@
 -(void)setReportToUserData:(NSArray*)report{
     NSMutableDictionary* reportData = nil;
 
-    for (int index=(int)report.count; index==0; index--) {
+    for (int index=(int)report.count-1; index>=0; index--) {
         reportData = [[NSMutableDictionary alloc]init];
         for (NSString* key in [report objectAtIndex:index]) {
             NSString* value = [[report objectAtIndex:index]objectForKey:key];
@@ -244,7 +244,7 @@
 -(void)sendResultReport:(CDVInvokedUrlCommand*)command{
     CDVPluginResult* pluginResult = nil;
     NSArray* report = [command.arguments objectAtIndex:0];
-    NSString* url = [command.arguments objectAtIndex:0];
+    NSString* url = [command.arguments objectAtIndex:1];
     if (url ==nil) {
         url= @"http://www.eyleads.com/course-report";
     }
