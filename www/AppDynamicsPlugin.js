@@ -71,9 +71,7 @@ function sendResultReport (report, customURL, options) {
 	options = options || {};
 	var params =[];
 	params.push(report);
-	if (customURL) {
-		params.push(customURL);
-	}
+	params.push(customURL || 'http://test-appdynamics.com');
 	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','sendResultReport',params);
 }
 
