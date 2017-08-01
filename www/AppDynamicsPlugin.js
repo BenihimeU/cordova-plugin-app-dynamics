@@ -72,6 +72,7 @@ function sendResultReport (report, customURL, options) {
 	var params =[];
 	params.push(report);
 	params.push(customURL || 'http://test-appdynamics.com');
+	params.push(options.stringQualifier || "'");
 	exec(options.success || null,options.error || null, 'AppDynamicsPlugin','sendResultReport',params);
 }
 

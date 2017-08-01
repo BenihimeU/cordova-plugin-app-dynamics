@@ -1,29 +1,28 @@
 package com.appdynamics.eydigital;
 
-import org.apache.cordova.CordovaPlugin;
+import android.util.Log;
+
+import com.appdynamics.eumagent.runtime.CallTracker;
+import com.appdynamics.eumagent.runtime.HttpRequestTracker;
+import com.appdynamics.eumagent.runtime.Instrumentation;
+import com.appdynamics.eumagent.runtime.ServerCorrelationHeaders;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-import java.net.URL;
-import java.net.MalformedURLException;
-import android.util.Log;
-
-import com.appdynamics.eumagent.runtime.Instrumentation;
-import com.appdynamics.eumagent.runtime.CallTracker;
-import com.appdynamics.eumagent.runtime.HttpRequestTracker;
-import com.appdynamics.eumagent.runtime.ServerCorrelationHeaders;
 
 public class AppDynamicsPlugin extends CordovaPlugin {
 	private static final String TAG = "AppDynamicsPlugin";
@@ -143,14 +142,14 @@ public class AppDynamicsPlugin extends CordovaPlugin {
             if (action.equals("sendResultReport")) {
                 JSONArray reporData = args.getJSONArray(0);
                 String urlString = args.getString(1);
+				String textQualifiers = args.getString(1);
                 try {
                     URL url = new URL(urlString);
                     int responsecode = 200;
                     for (int index = reporData.length()-1; index >= 0; index--) {
-                        HashMap headersMap = new HashMap();
                         JSONObject report = reporData.getJSONObject(index);
-                            String key = (String) report.get("property");
-                            String value = (String) report.get("value");
+                            String key = report.get("property")+textQualifiers;
+                            String value = textQualifiers + report.get("value") + textQualifiers;
                             if (key == null || value == null || key.length() == 0 || value.length() == 0) {
                                 cbContext.error("No Information");
                                 Log.e(TAG, "No Information");

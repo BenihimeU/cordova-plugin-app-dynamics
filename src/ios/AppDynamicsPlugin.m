@@ -227,12 +227,12 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
--(void)setReportToUserData:(NSArray*)report{
+-(void)setReportToUserData:(NSArray*)report withStringQualifier:(NSString *)qualifier{
     for (int index=(int)report.count-1; index>=0; index--) {
         NSString* value = [[report objectAtIndex:index]objectForKey:@"value"];
         NSString* key = [[report objectAtIndex:index]objectForKey:@"property"];
         if(key != nil && [key length] > 0 && value != nil && [value length] > 0) {
-            [ADEumInstrumentation setUserData:key value:value persist:false];
+            [ADEumInstrumentation setUserData:key value:[[qualifier stringByAppendingString:value] stringByAppendingString:qualifier] persist:false];
         }
     }
     
@@ -241,12 +241,14 @@
     CDVPluginResult* pluginResult = nil;
     NSArray* report = [command.arguments objectAtIndex:0];
     NSString* url = [command.arguments objectAtIndex:1];
+    NSString* qualifier = [command.arguments objectAtIndex:2];
     if ((url ==nil) || ([url length] == 0)) {
         url= @"http://www.eyleads.com/course-report";
     }
+    
     NSURL *nsurl = [[NSURL alloc] initWithString:url];
     if (0 != [report count]) {
-        [self setReportToUserData:report];
+        [self setReportToUserData:report withStringQualifier:qualifier];
         ADEumHTTPRequestTracker *tracker = [ADEumHTTPRequestTracker requestTrackerWithURL:nsurl];
         tracker.statusCode = [NSNumber numberWithInteger:200];
         [tracker reportDone];
