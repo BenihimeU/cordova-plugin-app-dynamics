@@ -142,7 +142,7 @@ public class AppDynamicsPlugin extends CordovaPlugin {
             if (action.equals("sendResultReport")) {
                 JSONArray reporData = args.getJSONArray(0);
                 String urlString = args.getString(1);
-				String textQualifiers = args.getString(1);
+				String textQualifiers = args.getString(2);
                 try {
                     URL url = new URL(urlString);
                     int responsecode = 200;
