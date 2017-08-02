@@ -147,8 +147,8 @@ public class AppDynamicsPlugin extends CordovaPlugin {
                     int responsecode = 200;
                     for (int index = reporData.length()-1; index >= 0; index--) {
                         JSONObject report = reporData.getJSONObject(index);
-                            String key = report.get("property");
-                            String value = report.get("value");
+                            String key = (String) report.get("property");
+                            String value = (String) report.get("value");
                             if (key == null || value == null || key.length() == 0 || value.length() == 0) {
                                 cbContext.error("No Information");
                                 Log.e(TAG, "No Information");
