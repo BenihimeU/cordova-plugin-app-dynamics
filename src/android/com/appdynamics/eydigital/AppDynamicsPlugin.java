@@ -142,14 +142,13 @@ public class AppDynamicsPlugin extends CordovaPlugin {
             if (action.equals("sendResultReport")) {
                 JSONArray reporData = args.getJSONArray(0);
                 String urlString = args.getString(1);
-				String textQualifiers = args.getString(2);
                 try {
                     URL url = new URL(urlString);
                     int responsecode = 200;
                     for (int index = reporData.length()-1; index >= 0; index--) {
                         JSONObject report = reporData.getJSONObject(index);
-                            String key = report.get("property")+textQualifiers;
-                            String value = textQualifiers + report.get("value") + textQualifiers;
+                            String key = report.get("property");
+                            String value = report.get("value");
                             if (key == null || value == null || key.length() == 0 || value.length() == 0) {
                                 cbContext.error("No Information");
                                 Log.e(TAG, "No Information");
